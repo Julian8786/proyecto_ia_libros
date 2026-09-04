@@ -193,10 +193,9 @@ if st.button("➕", key="btn_mas_flotante_abajo"):
     st.rerun()
 st.markdown('</div>', unsafe_allow_html=True)
 
-# 2. Barra de chat principal abajo
-prompt = st.chat_input("Escribe tu pregunta...", key="chat_input_unico")
-
-if prompt:
+# Capturar la entrada del usuario con el componente de chat de Streamlit
+if prompt := st.chat_input("Escribe tu pregunta..."):
+    # Mostrar el mensaje del usuario en la interfaz
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -219,19 +218,28 @@ if prompt:
                 "No inventes nombres, datos ni eventos.\n\n"
                 f"Contexto:\n{contexto_encontrado}"
             )
-    respuesta_modelo = client.chat.completions.create(
-        model="qwen-2.5-72b",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.1
-    )
-
-respuesta_final = respuesta_modelo.choices[0].message.content
-
-st.markdown(respuesta_final)
-st.session_state.messages.append({"role": "assistant", "content": respuesta_final})
+   # Llamar a la API de Groq únicamente cuando hay una pregunta activa
+    try:
+        respuesta_modelo = client.chat.completions.create(
+            model="qwen-2.5-72b",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.1
+        )
+        
+        # Extraer la respuesta de forma segura
+        respuesta_final = respuesta_modelo.choices[0].message.content
+        
+        # Mostrar la respuesta del asistente
+        with st.chat_message("assistant"):
+            st.markdown(respuesta_final)
+            
+        st.session_state.messages.append({"role": "assistant", "content": respuesta_final})
+        
+    except Exception as e:
+        st.error(f"Ocurrió un error al conectar con la API: {e}")
 # --- LOGO FLOTANTE EN LA ESQUINAS ---
 if os.path.exists("logo.png.png"):
     with open("logo.png.png", "rb") as f:
