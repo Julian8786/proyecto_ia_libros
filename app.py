@@ -220,7 +220,7 @@ if prompt:
                 f"Contexto:\n{contexto_encontrado}"
             )
     respuesta_modelo = client.chat.completions.create(
-        model="qwen-2.5-32b",
+        model="qwen-2.5-72b",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": prompt}
