@@ -218,17 +218,14 @@ if prompt:
                 f"Contexto:\n{contexto_encontrado}"
             )
 
-            # --- LLAMADA A LA NUBE CON GROQ ---
-            client = Groq(api_key="PEGA_AQUÍ_TU_API_KEY_DE_GROQ")
-
-            respuesta_modelo = client.chat.completions.create(
-                model='qwen2.5', 
-                messages=[
-                    {'role': 'system', 'content': system_prompt},
-                    {'role': 'user', 'content': prompt}
-                ],
-                options={'temperature': 0.1}
-            )
+              respuesta_modelo = client.chat.completions.create(
+              model="qwen-2.5-72b",  # Asegúrate de usar el modelo de Groq correcto
+              messages=[
+              {"role": "system", "content": system_prompt},
+              {"role": "user", "content": prompt}
+               ],
+               temperature=0.1        # <--- Se pone directo aquí, sin "options="
+              )
             
             respuesta_final = respuesta_modelo['message']['content']
             st.markdown(respuesta_final)
