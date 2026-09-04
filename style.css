@@ -1,0 +1,93 @@
+/* 1. Ajustes generales de pantalla */
+.stApp {
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .stChatMessage {
+        padding: 0.5rem;
+    }
+}
+
+/* 2. Fondo principal y márgenes */
+.main {
+    overflow-y: auto !important;
+}
+
+.stMainBlockContainer {
+    padding-bottom: 140px !important;
+}
+
+/* 3. Fijar la barra del fondo de Streamlit */
+div[data-testid="stBottom"] {
+    position: fixed !important;
+    bottom: 0px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background-color: transparent !important;
+    padding: 10px 20px 20px 20px !important;
+}
+
+/* 4. Posicionar el botón (+) flotante perfectamente alineado al lado del input */
+div.floating-popover-container {
+    position: absolute !important;
+    bottom: 24px !important;
+    left: 24px !important;
+    z-index: 999999 !important;
+}
+
+div.floating-popover-container button {
+    height: 46px !important;
+    width: 46px !important;
+    border-radius: 10px !important;
+    background-color: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: white !important;
+}
+
+/* 5. Mover el texto del chat_input a la derecha para dar espacio al botón (+) */
+div[data-testid="stChatInput"] {
+    padding-left: 55px !important;
+}
+
+/* 6. Responsivo para pantalla móvil */
+@media (max-width: 768px) {
+    div.floating-popover-container {
+        left: 15px !important;
+        bottom: 22px !important;
+    }
+}
+
+/* 7. Forzar logo estático e inmóvil en el sidebar */
+[data-testid="stSidebarNav"] {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.logo-sidebar-fijo {
+    position: sticky;
+    top: 0;
+    background-color: transparent;
+    padding-bottom: 10px;
+    z-index: 1000;
+}
+
+/* 8. Estilos para diferenciar mensajes de IA y usuario */
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarAssistant"]) {
+    background-color: #1e293b !important;
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #334155;
+}
+
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
+    background-color: #0f172a !important;
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #1e293b;
+}
+
+[data-testid="stChatMessageAvatarUser"] {
+    display: none !important;
+}
