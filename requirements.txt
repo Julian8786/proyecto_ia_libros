@@ -1,5 +1,6 @@
 streamlit
 groq
+pypdf
 chromadb
 torch
 torchvision
