@@ -220,14 +220,15 @@ if prompt := st.chat_input("Escribe tu pregunta..."):
             )
    # Llamar a la API de Groq únicamente cuando hay una pregunta activa
     try:
-        respuesta_modelo = client.chat.completions.create(
-            model="qwen-2.5-coder-32b",
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.1
-        )
+        respuesta_modelo = client.chat.completions.create(        model="qwen/qwen3.6-27b",
+                                messages=[
+                                    {"role": "system", "content": system_prompt},
+                                    {"role": "user", "content": prompt}
+                                ],
+                                temperature=0.1           
+                )
+        
+      
         
         # Extraer la respuesta de forma segura
         respuesta_final = respuesta_modelo.choices[0].message.content
