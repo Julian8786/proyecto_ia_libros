@@ -8,6 +8,8 @@ import chromadb
 from chromadb.utils import embedding_functions
 #import ollama
 
+client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+
 # Configuración de página
 st.set_page_config(page_title="Asistente de Libros", layout="wide")
 
@@ -217,15 +219,14 @@ if prompt:
                 "No inventes nombres, datos ni eventos.\n\n"
                 f"Contexto:\n{contexto_encontrado}"
             )
-
     respuesta_modelo = client.chat.completions.create(
-    model="qwen-2.5-72b",
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": prompt}
-    ],
-    temperature=0.1
-)
+        model="qwen-2.5-72b",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.1
+    )
 
 respuesta_final = respuesta_modelo.choices[0].message.content
 
