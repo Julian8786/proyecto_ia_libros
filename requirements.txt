@@ -1,5 +1,6 @@
 streamlit
-pypdf
-chromadb
 groq
+chromadb
+torch
+torchvision
 sentence-transformers
